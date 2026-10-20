@@ -1,6 +1,6 @@
 /* =========================================================
    CONCEPTO3D — style.css
-   Diseño oscuro tecnológico, adaptable y sin JavaScript
+   Diseño adaptable y carrusel sin JavaScript
 ========================================================= */
 
 /* VARIABLES */
@@ -135,8 +135,11 @@ section {
     font-weight: 700;
     text-align: center;
     cursor: pointer;
-    transition: background var(--transition), border-color var(--transition),
-        transform var(--transition), box-shadow var(--transition);
+    transition:
+        background var(--transition),
+        border-color var(--transition),
+        transform var(--transition),
+        box-shadow var(--transition);
 }
 
 .btn:hover {
@@ -332,7 +335,9 @@ header {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--bg-card);
-    transition: border-color var(--transition), background var(--transition),
+    transition:
+        border-color var(--transition),
+        background var(--transition),
         transform var(--transition);
 }
 
@@ -366,7 +371,12 @@ header {
     font-size: 0.95rem;
 }
 
-/* GALERÍA Y CARRUSEL */
+/* =========================================================
+   GALERÍA Y CARRUSEL
+   Escritorio: animación CSS al pasar por los bordes.
+   Móvil: desplazamiento horizontal táctil.
+========================================================= */
+
 .gallery {
     overflow: hidden;
 }
@@ -374,41 +384,75 @@ header {
 .marquee {
     position: relative;
     width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: hidden;
     padding: 8px 0 22px;
-    scroll-behavior: auto;
-    overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    cursor: grab;
-    touch-action: pan-x pan-y;
 }
 
-.marquee::-webkit-scrollbar {
-    display: none;
+/* Degradados en los extremos */
+.marquee::before,
+.marquee::after {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    width: 55px;
+    content: "";
+    pointer-events: none;
 }
 
+.marquee::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg), transparent);
+}
+
+.marquee::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg), transparent);
+}
+
+/* Zonas transparentes para activar el desplazamiento */
+.marquee-edge {
+    position: absolute;
+    z-index: 4;
+    top: 8px;
+    bottom: 22px;
+    width: clamp(64px, 12vw, 140px);
+    display: block;
+    background: transparent;
+}
+
+.marquee-edge-left {
+    left: 0;
+    cursor: w-resize;
+}
+
+.marquee-edge-right {
+    right: 0;
+    cursor: e-resize;
+}
+
+/* Fila de tarjetas */
 .marquee-track {
     display: flex;
     align-items: stretch;
     gap: var(--card-gap);
     width: max-content;
-    min-width: max-content;
-    animation: none !important;
-    transform: none !important;
-    will-change: auto;
+    animation: none;
+    transform: translateX(0);
+    will-change: transform;
 }
 
-.marquee.is-dragging {
-    cursor: grabbing;
-    user-select: none;
+/* Cursor en el extremo izquierdo */
+.marquee-edge-left:hover ~ .marquee-track {
+    animation: carrusel-hacia-izquierda 28s linear infinite;
 }
 
-.marquee.is-dragging .gallery-card {
-    pointer-events: none;
+/* Cursor en el extremo derecho */
+.marquee-edge-right:hover ~ .marquee-track {
+    animation: carrusel-hacia-derecha 28s linear infinite;
 }
 
+/* Tarjetas */
 .gallery-card {
     flex: 0 0 var(--card-width);
     width: var(--card-width);
@@ -417,7 +461,9 @@ header {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--bg-card);
-    transition: border-color var(--transition), box-shadow var(--transition),
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition),
         transform var(--transition);
 }
 
@@ -469,6 +515,35 @@ header {
 
 .gallery-card .card-link:hover {
     color: #fff;
+}
+
+/* Animación hacia la izquierda */
+@keyframes carrusel-hacia-izquierda {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(calc(-50% - var(--card-gap) / 2));
+    }
+}
+
+/* Animación hacia la derecha */
+@keyframes carrusel-hacia-derecha {
+    from {
+        transform: translateX(calc(-50% - var(--card-gap) / 2));
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.gallery-footer {
+    margin-top: 24px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-align: center;
 }
 
 /* PROCESO */
@@ -527,7 +602,8 @@ header {
     overflow: hidden;
     border: 1px solid var(--border-blue);
     border-radius: 24px;
-    background: radial-gradient(circle at 100% 0%, rgba(22, 140, 255, 0.16), transparent 42%),
+    background:
+        radial-gradient(circle at 100% 0%, rgba(22, 140, 255, 0.16), transparent 42%),
         var(--bg-card);
 }
 
@@ -805,19 +881,46 @@ select:focus-visible {
         padding: 8px 16px 20px;
         scroll-snap-type: x proximity;
         scroll-padding-inline: 16px;
-        touch-action: pan-x pan-y;
+        overscroll-behavior-x: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-dark) var(--bg-card);
+        touch-action: pan-x;
         cursor: grab;
     }
 
+    .marquee:active {
+        cursor: grabbing;
+    }
+
     .marquee::-webkit-scrollbar {
+        height: 5px;
+    }
+
+    .marquee::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: var(--bg-card);
+    }
+
+    .marquee::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: var(--primary-dark);
+    }
+
+    .marquee-edge {
+        display: none;
+    }
+
+    .marquee::before,
+    .marquee::after {
         display: none;
     }
 
     .marquee-track {
         width: max-content;
         min-width: max-content;
-        animation: none !important;
-        transform: none !important;
+        animation: none;
+        transform: none;
         will-change: auto;
     }
 
