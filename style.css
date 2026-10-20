@@ -374,29 +374,19 @@ header {
 .marquee {
     position: relative;
     width: 100%;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     padding: 8px 0 22px;
+    scroll-behavior: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    cursor: grab;
+    touch-action: pan-x pan-y;
 }
 
-.marquee::before,
-.marquee::after {
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    bottom: 0;
-    width: 55px;
-    content: "";
-    pointer-events: none;
-}
-
-.marquee::before {
-    left: 0;
-    background: linear-gradient(to right, var(--bg), transparent);
-}
-
-.marquee::after {
-    right: 0;
-    background: linear-gradient(to left, var(--bg), transparent);
+.marquee::-webkit-scrollbar {
+    display: none;
 }
 
 .marquee-track {
@@ -404,13 +394,19 @@ header {
     align-items: stretch;
     gap: var(--card-gap);
     width: max-content;
-    animation: carrusel-concepto 42s linear infinite;
-    will-change: transform;
+    min-width: max-content;
+    animation: none !important;
+    transform: none !important;
+    will-change: auto;
 }
 
-.marquee:hover .marquee-track,
-.marquee:focus-within .marquee-track {
-    animation-play-state: paused;
+.marquee.is-dragging {
+    cursor: grabbing;
+    user-select: none;
+}
+
+.marquee.is-dragging .gallery-card {
+    pointer-events: none;
 }
 
 .gallery-card {
@@ -473,22 +469,6 @@ header {
 
 .gallery-card .card-link:hover {
     color: #fff;
-}
-
-@keyframes carrusel-concepto {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(calc(-50% - var(--card-gap) / 2));
-    }
-}
-
-.gallery-footer {
-    margin-top: 24px;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    text-align: center;
 }
 
 /* PROCESO */
@@ -823,37 +803,21 @@ select:focus-visible {
         overflow-x: auto;
         overflow-y: hidden;
         padding: 8px 16px 20px;
-        scroll-snap-type: x mandatory;
+        scroll-snap-type: x proximity;
         scroll-padding-inline: 16px;
-        overscroll-behavior-x: contain;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        scrollbar-color: var(--primary-dark) var(--bg-card);
+        touch-action: pan-x pan-y;
+        cursor: grab;
     }
 
     .marquee::-webkit-scrollbar {
-        height: 5px;
-    }
-
-    .marquee::-webkit-scrollbar-track {
-        border-radius: 10px;
-        background: var(--bg-card);
-    }
-
-    .marquee::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background: var(--primary-dark);
-    }
-
-    .marquee::before,
-    .marquee::after {
         display: none;
     }
 
     .marquee-track {
         width: max-content;
-        animation: none;
-        transform: none;
+        min-width: max-content;
+        animation: none !important;
+        transform: none !important;
         will-change: auto;
     }
 
