@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#090b12">
+    <meta name="description" content="Contactá a Concepto3D y solicitá tu presupuesto de impresión 3D personalizada.">
+
+    <title>Contacto y Presupuesto | Concepto3D</title>
+
+    <link rel="stylesheet" href="./contacto.css">
+</head>
+
+<body>
+
+    <header class="contact-header">
+        <div class="contact-container contact-nav">
+
+            <a class="brand" href="./index.html" aria-label="Concepto3D - Inicio">
+                <span class="brand-symbol">C<span>3D</span></span>
+                <span class="brand-name">CONCEPTO<span>3D</span></span>
+            </a>
+
+            <a class="back-link" href="./index.html">
+                <span aria-hidden="true">←</span>
+                Volver al inicio
+            </a>
+
+        </div>
+    </header>
+
+    <main class="contact-main">
+        <section class="contact-container contact-layout">
+
+            <div class="contact-intro">
+
+                <span class="contact-kicker">03 / HABLEMOS DE TU IDEA</span>
+
+                <h1>
+                    Contacto y
+                    <span class="gradient-text">presupuesto.</span>
+                </h1>
+
+                <p class="contact-description">
+                    ¿Tenés una idea, un diseño o una pieza que necesitás
+                    fabricar? Contanos qué estás buscando y te ayudamos
+                    a convertirlo en una impresión 3D.
+                </p>
+
+                <div class="contact-benefits">
+
+                    <div class="benefit-item">
+                        <span class="benefit-icon" aria-hidden="true">✦</span>
+                        <div>
+                            <h2>Diseños personalizados</h2>
+                            <p>Adaptamos cada proyecto a tus necesidades.</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <span class="benefit-icon" aria-hidden="true">◇</span>
+                        <div>
+                            <h2>Presupuestos a medida</h2>
+                            <p>Evaluamos tu idea y sus características.</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <span class="benefit-icon" aria-hidden="true">↗</span>
+                        <div>
+                            <h2>Atención directa</h2>
+                            <p>Recibí nuestra respuesta por correo electrónico.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="contact-note">
+                    <span class="note-dot" aria-hidden="true"></span>
+                    <p>Tu próxima idea puede empezar acá.</p>
+                </div>
+
+            </div>
+
+
+            <div class="contact-form-card">
+
+                <div class="form-heading">
+                    <span class="form-label">CONTACTO / 01</span>
+                    <h2>Contanos tu proyecto</h2>
+                    <p>Completá los campos y envianos tu consulta.</p>
+                </div>
+
+                <form id="contactForm" class="contact-form">
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre y apellido</label>
+
+                        <input
+                            type="text"
+                            id="nombre"
+                            name="nombre"
+                            placeholder="¿Cómo te llamás?"
+                            autocomplete="name"
+                            maxlength="100"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Número de contacto</label>
+
+                        <input
+                            type="tel"
+                            id="telefono"
+                            name="telefono"
+                            placeholder="Ej.: 11 2345-6789"
+                            autocomplete="tel"
+                            inputmode="tel"
+                            maxlength="30"
+                            required
+                        >
+
+                        <span class="field-hint">
+                            Incluí el código de área.
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="consulta">¿En qué podemos ayudarte?</label>
+
+                        <textarea
+                            id="consulta"
+                            name="consulta"
+                            placeholder="Contanos qué querés imprimir, las medidas aproximadas, la cantidad o cualquier duda que tengas..."
+                            rows="6"
+                            maxlength="3000"
+                            required
+                        ></textarea>
+
+                        <span class="field-hint">
+                            Cuantos más detalles nos des, mejor podremos orientarte.
+                        </span>
+                    </div>
+
+                    <button type="submit" class="contact-submit">
+                        <span>Enviar consulta por correo</span>
+                        <span class="submit-arrow" aria-hidden="true">↗</span>
+                    </button>
+
+                    <p class="form-disclaimer">
+                        Tu consulta se enviará a nuestro correo electrónico.
+                    </p>
+
+                    <p id="formStatus" class="form-status"
+                       role="status" aria-live="polite"></p>
+
+                </form>
+
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="contact-footer">
+        <div class="contact-container footer-content">
+
+            <p>© <span id="currentYear"></span> Concepto3D.</p>
+
+            <a href="https://www.instagram.com/concepto3d.ok/"
+               target="_blank"
+               rel="noopener noreferrer">
+                Instagram @concepto3d.ok ↗
+            </a>
+
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="./contacto.js" defer></script>
+
+</body>
+</html>
